@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Zap } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
     { name: "Inicio", href: "#" },
@@ -12,79 +22,212 @@ const Navbar = () => {
     { name: "Contacto", href: "#contacto" },
   ];
 
+  const navVariants = {
+    hidden: { y: -100, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+      }
+    }
+  };
+
+  const linkVariants = {
+    hidden: { opacity: 0, y: -10 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.3 + i * 0.1,
+        duration: 0.4,
+        ease: [0.22, 1, 0.36, 1] as const,
+      }
+    })
+  };
+
+  const mobileMenuVariants = {
+    hidden: { 
+      opacity: 0,
+      height: 0,
+      transition: {
+        duration: 0.3,
+        ease: [0.22, 1, 0.36, 1] as const,
+      }
+    },
+    visible: { 
+      opacity: 1,
+      height: "auto",
+      transition: {
+        duration: 0.4,
+        ease: [0.22, 1, 0.36, 1] as const,
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      }
+    }
+  };
+
+  const mobileItemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: {
+        duration: 0.3,
+        ease: [0.22, 1, 0.36, 1] as const,
+      }
+    }
+  };
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
+    <motion.nav 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled 
+          ? "bg-background/95 backdrop-blur-lg border-b border-border/50 shadow-sm" 
+          : "bg-background/80 backdrop-blur-md border-b border-border/50"
+      }`}
+      variants={navVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center group-hover:shadow-glow transition-all duration-300">
+          <motion.a 
+            href="#" 
+            className="flex items-center gap-2 group"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <motion.div 
+              className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center transition-all duration-300 group-hover:shadow-glow"
+              whileHover={{ rotate: 5 }}
+            >
               <Zap className="w-5 h-5 text-primary-foreground" />
-            </div>
+            </motion.div>
             <span className="text-xl font-bold text-foreground">
               viva<span className="text-primary">intec</span>
             </span>
-          </a>
+          </motion.a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
+            {navLinks.map((link, i) => (
+              <motion.a
                 key={link.name}
                 href={link.href}
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm font-medium"
+                className="relative text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm font-medium group"
+                custom={i}
+                variants={linkVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover={{ y: -2 }}
               >
                 {link.name}
-              </a>
+                <motion.span 
+                  className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary origin-left"
+                  initial={{ scaleX: 0 }}
+                  whileHover={{ scaleX: 1 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                />
+              </motion.a>
             ))}
           </div>
 
           {/* CTA Buttons */}
-          <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-              Iniciar Sesión
-            </Button>
-            <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-glow transition-all duration-300">
-              Comenzar Gratis
-            </Button>
-          </div>
+          <motion.div 
+            className="hidden md:flex items-center gap-3"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5, duration: 0.4 }}
+          >
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+                Iniciar Sesión
+              </Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-glow transition-all duration-300">
+                Comenzar Gratis
+              </Button>
+            </motion.div>
+          </motion.div>
 
           {/* Mobile Menu Button */}
-          <button
+          <motion.button
             className="md:hidden p-2 text-foreground"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            whileTap={{ scale: 0.9 }}
           >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+            <AnimatePresence mode="wait">
+              {isMenuOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X className="w-6 h-6" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu className="w-6 h-6" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.button>
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border/50 animate-fade-in">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 py-2"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
-              ))}
-              <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
-                <Button variant="ghost" className="justify-start">
-                  Iniciar Sesión
-                </Button>
-                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                  Comenzar Gratis
-                </Button>
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div 
+              className="md:hidden overflow-hidden"
+              variants={mobileMenuVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            >
+              <div className="py-4 border-t border-border/50">
+                <div className="flex flex-col gap-4">
+                  {navLinks.map((link) => (
+                    <motion.a
+                      key={link.name}
+                      href={link.href}
+                      className="text-muted-foreground hover:text-foreground transition-colors duration-200 py-2"
+                      onClick={() => setIsMenuOpen(false)}
+                      variants={mobileItemVariants}
+                      whileHover={{ x: 10 }}
+                    >
+                      {link.name}
+                    </motion.a>
+                  ))}
+                  <motion.div 
+                    className="flex flex-col gap-2 pt-4 border-t border-border/50"
+                    variants={mobileItemVariants}
+                  >
+                    <Button variant="ghost" className="justify-start">
+                      Iniciar Sesión
+                    </Button>
+                    <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                      Comenzar Gratis
+                    </Button>
+                  </motion.div>
+                </div>
               </div>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 
