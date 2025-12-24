@@ -55,16 +55,20 @@ const Footer = () => {
 
   // Render reCAPTCHA when showCaptcha becomes true
   const renderCaptcha = () => {
-    if (typeof window !== 'undefined' && window.grecaptcha) {
+    if (typeof window !== 'undefined' && (window as any).recaptchaReady && window.grecaptcha && window.grecaptcha.render) {
       setTimeout(() => {
         const container = document.getElementById('recaptcha-container');
         if (container && container.childNodes.length === 0) {
-          window.grecaptcha.render('recaptcha-container', {
-            sitekey: RECAPTCHA_SITE_KEY,
-            callback: handleCaptchaSuccess,
-            theme: 'dark',
-            size: 'compact',
-          });
+          try {
+            window.grecaptcha.render('recaptcha-container', {
+              sitekey: RECAPTCHA_SITE_KEY,
+              callback: handleCaptchaSuccess,
+              theme: 'dark',
+              size: 'compact',
+            });
+          } catch (e) {
+            console.error('reCAPTCHA render error:', e);
+          }
         }
       }, 100);
     }

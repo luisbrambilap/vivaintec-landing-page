@@ -49,27 +49,27 @@ const ContactForm = () => {
     // Render reCAPTCHA on mount
     useEffect(() => {
         const renderCaptcha = () => {
-            if (window.grecaptcha && recaptchaRef.current && widgetIdRef.current === null) {
-                widgetIdRef.current = window.grecaptcha.render(recaptchaRef.current, {
-                    sitekey: RECAPTCHA_SITE_KEY,
-                    callback: (token: string) => setCaptchaToken(token),
-                    theme: 'dark',
-                });
+            if (window.grecaptcha && window.grecaptcha.render && recaptchaRef.current && widgetIdRef.current === null) {
+                try {
+                    widgetIdRef.current = window.grecaptcha.render(recaptchaRef.current, {
+                        sitekey: RECAPTCHA_SITE_KEY,
+                        callback: (token: string) => setCaptchaToken(token),
+                        theme: 'dark',
+                    });
+                } catch (e) {
+                    console.error('reCAPTCHA render error:', e);
+                }
             }
         };
 
-        // Check if grecaptcha is already loaded
-        if (window.grecaptcha) {
+        // Check if reCAPTCHA is already ready
+        if ((window as any).recaptchaReady) {
             renderCaptcha();
         } else {
-            // Wait for script to load
-            const interval = setInterval(() => {
-                if (window.grecaptcha) {
-                    clearInterval(interval);
-                    renderCaptcha();
-                }
-            }, 100);
-            return () => clearInterval(interval);
+            // Wait for recaptchaReady event
+            const handleReady = () => renderCaptcha();
+            window.addEventListener('recaptchaReady', handleReady);
+            return () => window.removeEventListener('recaptchaReady', handleReady);
         }
     }, []);
 
