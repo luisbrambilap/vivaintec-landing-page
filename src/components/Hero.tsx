@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, TrendingUp, Users, DollarSign } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Hero = () => {
@@ -8,14 +8,14 @@ const Hero = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: 0.12,
         delayChildren: 0.2,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 25 },
     visible: {
       opacity: 1,
       y: 0,
@@ -26,318 +26,150 @@ const Hero = () => {
     },
   };
 
-  const floatingVariants = {
-    animate: {
-      y: [-8, 8, -8],
-      transition: {
-        duration: 6,
-        ease: "easeInOut",
-        repeat: Infinity,
-      },
-    },
-  };
-
-  const floatingDelayedVariants = {
-    animate: {
-      y: [8, -8, 8],
-      transition: {
-        duration: 6,
-        ease: "easeInOut",
-        repeat: Infinity,
-        delay: 2,
-      },
-    },
-  };
-
-  const barVariants = {
-    hidden: { scaleY: 0 },
-    visible: (i: number) => ({
-      scaleY: 1,
-      transition: {
-        delay: 0.8 + i * 0.1,
-        duration: 0.5,
-        ease: [0.22, 1, 0.36, 1] as const,
-      },
-    }),
-  };
+  const trustItems = [
+    "Consulta gratuita",
+    "Sin compromiso",
+    "Soporte 24/7",
+  ];
 
   return (
-    <section className="relative min-h-screen pt-20 overflow-hidden">
-      {/* Animated background gradient */}
-      <motion.div 
-        className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/30"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.2 }}
-      />
-      
-      {/* Floating decorative elements with parallax effect */}
-      <motion.div 
-        className="absolute top-32 left-8 w-64 h-64 bg-accent/10 rounded-full blur-3xl"
-        animate={{ 
-          x: [0, 20, 0],
-          y: [0, -20, 0],
-          scale: [1, 1.1, 1],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div 
-        className="absolute bottom-32 right-8 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
-        animate={{ 
-          x: [0, -30, 0],
-          y: [0, 30, 0],
-          scale: [1, 1.15, 1],
-        }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-      />
+    <section className="relative min-h-[90vh] pt-24 pb-16 overflow-hidden flex items-center">
+      {/* Background with subtle gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-secondary/30" />
 
-      <div className="container relative mx-auto px-4 lg:px-8 py-16 lg:py-24">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left floating card */}
-          <div className="hidden lg:block lg:col-span-2">
-            <motion.div
-              variants={floatingVariants}
-              animate="animate"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-            >
-              <motion.div 
-                className="bg-card rounded-2xl p-5 shadow-card border border-border/50 max-w-[200px]"
-                whileHover={{ 
-                  scale: 1.05, 
-                  boxShadow: "0 20px 40px -10px hsl(var(--primary) / 0.2)",
-                  transition: { duration: 0.3 }
-                }}
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <motion.div
-                    animate={{ rotate: [0, 10, 0] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    <TrendingUp className="w-4 h-4 text-primary" />
-                  </motion.div>
-                  <span className="text-xs text-muted-foreground">Ingresos</span>
-                </div>
-                <div className="h-16 flex items-end gap-1">
-                  {[40, 65, 45, 80, 55, 90, 70].map((height, i) => (
-                    <motion.div
-                      key={i}
-                      className="flex-1 bg-gradient-to-t from-primary/20 to-primary/60 rounded-t origin-bottom"
-                      style={{ height: `${height}%` }}
-                      custom={i}
-                      variants={barVariants}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true }}
-                    />
-                  ))}
-                </div>
-                <div className="mt-3 flex items-center justify-between">
-                  <motion.span 
-                    className="text-lg font-bold text-foreground"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 1.5 }}
-                  >
-                    +127%
-                  </motion.span>
-                  <motion.span 
-                    className="text-xs text-accent-foreground bg-accent px-2 py-1 rounded-full font-medium"
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 1.6, type: "spring", stiffness: 200 }}
-                  >
-                    Este mes
-                  </motion.span>
-                </div>
-              </motion.div>
-            </motion.div>
+      {/* Mid-Century Decorative Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Large circle - top right */}
+        <motion.div
+          className="absolute -top-20 -right-20 w-96 h-96 rounded-full border-[3px] border-primary/10"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+        />
+        <motion.div
+          className="absolute -top-10 -right-10 w-72 h-72 rounded-full border-[2px] border-accent/15"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.2, delay: 0.1, ease: "easeOut" }}
+        />
+
+        {/* Small decorative circles - left */}
+        <motion.div
+          className="absolute top-1/3 left-12 w-4 h-4 rounded-full bg-primary/20"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+        />
+        <motion.div
+          className="absolute top-1/3 left-20 w-2 h-2 rounded-full bg-accent/30"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.9 }}
+        />
+        <motion.div
+          className="absolute top-[40%] left-8 w-3 h-3 rounded-full bg-destructive/20"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, delay: 1 }}
+        />
+
+        {/* Atomic starburst - bottom left */}
+        <motion.div
+          className="absolute bottom-32 left-16 w-32 h-32"
+          initial={{ rotate: -45, opacity: 0 }}
+          animate={{ rotate: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-full h-[2px] bg-primary/15 rounded-full" />
           </div>
+          <div className="absolute inset-0 flex items-center justify-center rotate-45">
+            <div className="w-full h-[2px] bg-primary/15 rounded-full" />
+          </div>
+          <div className="absolute inset-0 flex items-center justify-center rotate-90">
+            <div className="w-full h-[2px] bg-primary/15 rounded-full" />
+          </div>
+          <div className="absolute inset-0 flex items-center justify-center -rotate-45">
+            <div className="w-full h-[2px] bg-primary/15 rounded-full" />
+          </div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-4 h-4 rounded-full bg-accent/20" />
+          </div>
+        </motion.div>
 
-          {/* Center content */}
-          <motion.div 
-            className="lg:col-span-8 text-center"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
+        {/* Decorative line - right */}
+        <motion.div
+          className="absolute top-1/2 right-24 w-[2px] h-40 bg-gradient-to-b from-transparent via-primary/20 to-transparent"
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        />
+      </div>
+
+      <div className="container relative mx-auto px-4 lg:px-8">
+        <motion.div
+          className="max-w-4xl mx-auto text-center"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+
+
+          {/* Main Headline */}
+          <motion.h1
+            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-[1.1] mb-6 tracking-tight"
+            variants={itemVariants}
           >
-            <motion.div variants={itemVariants}>
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary text-sm text-muted-foreground mb-6">
-                <motion.span 
-                  className="w-2 h-2 rounded-full bg-accent"
-                  animate={{ scale: [1, 1.3, 1], opacity: [1, 0.7, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-                +500 empresas confían en nosotros
-              </span>
-            </motion.div>
+            Entregamos la{" "}
+            <span className="relative inline-block text-primary">
+              solución perfecta
 
-            <motion.h1 
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-tight mb-6"
-              variants={itemVariants}
-            >
-              Entregamos la{" "}
-              <span className="relative inline-block">
-                <motion.span 
-                  className="absolute inset-0 bg-accent rounded-lg -rotate-1 scale-105"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: 0.8, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  style={{ originX: 0 }}
-                />
-                <span className="relative z-10 text-accent-foreground">solución perfecta</span>
-              </span>
-              <br />
-              para tu negocio
-            </motion.h1>
+            </span>
+            <br />
+            para tu negocio
+          </motion.h1>
 
-            <motion.p 
-              className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8"
-              variants={itemVariants}
-            >
-              Desarrollamos software personalizado para empresas que buscan 
-              automatizar procesos, optimizar gestión y escalar operaciones.
-            </motion.p>
+          {/* Subtitle */}
+          <motion.p
+            className="text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
+            variants={itemVariants}
+          >
+            Desarrollamos software personalizado para empresas que buscan
+            automatizar procesos, optimizar gestión y escalar operaciones.
+          </motion.p>
 
-            <motion.div 
-              className="flex flex-col sm:flex-row items-center justify-center gap-4"
-              variants={itemVariants}
-            >
-              <div className="flex-1 sm:flex-initial w-full sm:w-auto">
-                <motion.div 
-                  className="flex items-center bg-card rounded-xl border border-border/50 shadow-card overflow-hidden max-w-md mx-auto sm:mx-0"
-                  whileHover={{ boxShadow: "0 10px 40px -10px hsl(var(--primary) / 0.15)" }}
-                  transition={{ duration: 0.3 }}
+          {/* CTA Section */}
+          <motion.div
+            className="flex flex-col items-center gap-6"
+            variants={itemVariants}
+          >
+            {/* CTA Button */}
+            <a href="#contacto">
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-10 py-6 shadow-lg text-lg">
+                Comenzar
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </a>
+
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
+              {trustItems.map((item, i) => (
+                <motion.div
+                  key={item}
+                  className="flex items-center gap-2"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1 + i * 0.1, duration: 0.4 }}
                 >
-                  <input
-                    type="email"
-                    placeholder="Tu correo electrónico"
-                    className="flex-1 px-5 py-4 bg-transparent outline-none text-foreground placeholder:text-muted-foreground"
-                  />
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Button className="m-1.5 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-6 shadow-md group">
-                      Comenzar
-                      <motion.span
-                        className="inline-block ml-2"
-                        initial={{ x: 0 }}
-                        whileHover={{ x: 4 }}
-                      >
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </motion.span>
-                    </Button>
-                  </motion.div>
+                  <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Check className="w-3 h-3 text-primary" />
+                  </div>
+                  {item}
                 </motion.div>
-              </div>
-            </motion.div>
-
-            <motion.p 
-              className="text-sm text-muted-foreground mt-4"
-              variants={itemVariants}
-            >
-              ✨ Consulta gratuita • Sin compromiso
-            </motion.p>
-          </motion.div>
-
-          {/* Right floating cards */}
-          <div className="hidden lg:block lg:col-span-2">
-            <div className="space-y-4">
-              <motion.div
-                variants={floatingDelayedVariants}
-                animate="animate"
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
-                <motion.div 
-                  className="bg-card rounded-2xl p-5 shadow-card border border-border/50"
-                  whileHover={{ 
-                    scale: 1.05, 
-                    boxShadow: "0 20px 40px -10px hsl(var(--primary) / 0.2)",
-                    transition: { duration: 0.3 }
-                  }}
-                >
-                  <span className="text-xs text-muted-foreground">Clientes Activos</span>
-                  <div className="flex items-center gap-2 mt-2">
-                    <motion.div
-                      animate={{ scale: [1, 1.1, 1] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
-                      <Users className="w-5 h-5 text-primary" />
-                    </motion.div>
-                    <motion.span 
-                      className="text-2xl font-bold text-foreground"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 1 }}
-                    >
-                      2.4k
-                    </motion.span>
-                  </div>
-                </motion.div>
-              </motion.div>
-              
-              <motion.div
-                variants={floatingVariants}
-                animate="animate"
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-              >
-                <motion.div 
-                  className="bg-card rounded-2xl p-5 shadow-card border border-border/50"
-                  whileHover={{ 
-                    scale: 1.05, 
-                    boxShadow: "0 20px 40px -10px hsl(var(--primary) / 0.2)",
-                    transition: { duration: 0.3 }
-                  }}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs text-muted-foreground">Ahorro</span>
-                    <motion.span 
-                      className="text-xs bg-accent text-accent-foreground px-2 py-0.5 rounded-full"
-                      animate={{ scale: [1, 1.05, 1] }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                    >
-                      Mensual
-                    </motion.span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <DollarSign className="w-5 h-5 text-primary" />
-                    <motion.span 
-                      className="text-2xl font-bold text-foreground"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 1.2 }}
-                    >
-                      45,200
-                    </motion.span>
-                  </div>
-                  <div className="mt-3 h-2 bg-secondary rounded-full overflow-hidden">
-                    <motion.div 
-                      className="h-full bg-gradient-to-r from-primary to-accent rounded-full"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: "75%" }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 1.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                    />
-                  </div>
-                </motion.div>
-              </motion.div>
+              ))}
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

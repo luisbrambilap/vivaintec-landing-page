@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
@@ -24,8 +24,8 @@ const Navbar = () => {
 
   const navVariants = {
     hidden: { y: -100, opacity: 0 },
-    visible: { 
-      y: 0, 
+    visible: {
+      y: 0,
       opacity: 1,
       transition: {
         duration: 0.6,
@@ -48,7 +48,7 @@ const Navbar = () => {
   };
 
   const mobileMenuVariants = {
-    hidden: { 
+    hidden: {
       opacity: 0,
       height: 0,
       transition: {
@@ -56,7 +56,7 @@ const Navbar = () => {
         ease: [0.22, 1, 0.36, 1] as const,
       }
     },
-    visible: { 
+    visible: {
       opacity: 1,
       height: "auto",
       transition: {
@@ -70,8 +70,8 @@ const Navbar = () => {
 
   const mobileItemVariants = {
     hidden: { opacity: 0, x: -20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
       transition: {
         duration: 0.3,
@@ -81,12 +81,11 @@ const Navbar = () => {
   };
 
   return (
-    <motion.nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled 
-          ? "bg-background/95 backdrop-blur-lg border-b border-border/50 shadow-sm" 
-          : "bg-background/80 backdrop-blur-md border-b border-border/50"
-      }`}
+    <motion.nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+        ? "bg-background/95 backdrop-blur-lg border-b border-border/50 shadow-sm"
+        : "bg-background/80 backdrop-blur-md border-b border-border/50"
+        }`}
       variants={navVariants}
       initial="hidden"
       animate="visible"
@@ -94,22 +93,17 @@ const Navbar = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <motion.a 
-            href="#" 
-            className="flex items-center gap-2 group"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <a
+            href="#"
+            className="flex items-center gap-2"
           >
-            <motion.div 
-              className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center transition-all duration-300 group-hover:shadow-glow"
-              whileHover={{ rotate: 5 }}
-            >
-              <Zap className="w-5 h-5 text-primary-foreground" />
-            </motion.div>
-            <span className="text-xl font-bold text-foreground">
-              viva<span className="text-primary">intec</span>
-            </span>
-          </motion.a>
+            <img
+              src="/logo.svg"
+              alt="Vivaintec Logo"
+              className="h-12 w-auto select-none pointer-events-none"
+              draggable="false"
+            />
+          </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
@@ -125,7 +119,7 @@ const Navbar = () => {
                 whileHover={{ y: -2 }}
               >
                 {link.name}
-                <motion.span 
+                <motion.span
                   className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary origin-left"
                   initial={{ scaleX: 0 }}
                   whileHover={{ scaleX: 1 }}
@@ -136,22 +130,17 @@ const Navbar = () => {
           </div>
 
           {/* CTA Buttons */}
-          <motion.div 
+          <motion.div
             className="hidden md:flex items-center gap-3"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5, duration: 0.4 }}
           >
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-                Iniciar Sesión
+            <a href="#contacto">
+              <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md">
+                Cotizar
               </Button>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-glow transition-all duration-300">
-                Comenzar Gratis
-              </Button>
-            </motion.div>
+            </a>
           </motion.div>
 
           {/* Mobile Menu Button */}
@@ -189,7 +178,7 @@ const Navbar = () => {
         {/* Mobile Menu */}
         <AnimatePresence>
           {isMenuOpen && (
-            <motion.div 
+            <motion.div
               className="md:hidden overflow-hidden"
               variants={mobileMenuVariants}
               initial="hidden"
@@ -210,13 +199,10 @@ const Navbar = () => {
                       {link.name}
                     </motion.a>
                   ))}
-                  <motion.div 
+                  <motion.div
                     className="flex flex-col gap-2 pt-4 border-t border-border/50"
                     variants={mobileItemVariants}
                   >
-                    <Button variant="ghost" className="justify-start">
-                      Iniciar Sesión
-                    </Button>
                     <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                       Comenzar Gratis
                     </Button>
@@ -227,7 +213,7 @@ const Navbar = () => {
           )}
         </AnimatePresence>
       </div>
-    </motion.nav>
+    </motion.nav >
   );
 };
 

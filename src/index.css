@@ -1,78 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
-
 @layer base {
   :root {
-    --background: 210 20% 97%;
-    --foreground: 200 25% 15%;
+    /* Modern Dark Theme - Black dominant with bright white borders */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 100%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 200 25% 15%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 200 25% 15%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 168 80% 32%;
-    --primary-foreground: 0 0% 100%;
+    /* Primary - Pure white */
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 4%;
 
-    --secondary: 210 15% 92%;
-    --secondary-foreground: 200 25% 15%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 15% 92%;
-    --muted-foreground: 200 10% 45%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 80%;
 
-    --accent: 75 85% 55%;
-    --accent-foreground: 200 25% 15%;
+    /* Accent - Light gray */
+    --accent: 0 0% 18%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Destructive */
+    --destructive: 0 60% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 210 20% 88%;
-    --input: 210 20% 88%;
-    --ring: 168 80% 32%;
+    /* Bright white borders */
+    --border: 0 0% 40%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 100%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    /* Custom tokens */
-    --accent-lime: 75 85% 55%;
-    --accent-lime-foreground: 200 25% 15%;
-    --hero-gradient: linear-gradient(135deg, hsl(210 20% 97%) 0%, hsl(210 25% 94%) 100%);
-    --card-shadow: 0 4px 24px -4px hsl(200 25% 15% / 0.08);
-    --card-shadow-hover: 0 8px 32px -4px hsl(200 25% 15% / 0.12);
-    --glow-primary: 0 0 40px hsl(168 80% 32% / 0.2);
+    /* Custom tokens - Dark minimal */
+    --accent-lime: 0 0% 100%;
+    --accent-lime-foreground: 0 0% 4%;
+    --hero-gradient: linear-gradient(145deg, hsl(0 0% 4%) 0%, hsl(0 0% 6%) 100%);
+    --card-shadow: 0 1px 3px 0 hsl(0 0% 0% / 0.3);
+    --card-shadow-hover: 0 10px 25px -5px hsl(0 0% 0% / 0.5);
+    --glow-primary: 0 0 30px hsl(0 0% 100% / 0.08);
   }
 
   .dark {
-    --background: 200 25% 8%;
-    --foreground: 210 20% 97%;
+    /* Modern Dark - Inverted B&W */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
 
-    --card: 200 20% 12%;
-    --card-foreground: 210 20% 97%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 200 20% 12%;
-    --popover-foreground: 210 20% 97%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 168 70% 45%;
-    --primary-foreground: 200 25% 8%;
+    /* Primary - White on dark */
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 4%;
 
-    --secondary: 200 15% 18%;
-    --secondary-foreground: 210 20% 97%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 200 15% 18%;
-    --muted-foreground: 210 15% 60%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 75 75% 50%;
-    --accent-foreground: 200 25% 8%;
+    /* Accent */
+    --accent: 0 0% 18%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    /* Destructive */
+    --destructive: 0 60% 50%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 200 15% 20%;
-    --input: 200 15% 20%;
-    --ring: 168 70% 45%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 0 0% 98%;
   }
 }
 
@@ -85,7 +94,12 @@
     @apply bg-background text-foreground font-outfit antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-outfit font-semibold tracking-tight;
   }
 }
@@ -150,9 +164,12 @@
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-12px);
   }
@@ -163,6 +180,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -173,6 +191,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
