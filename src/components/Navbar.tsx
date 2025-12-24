@@ -203,9 +203,11 @@ const Navbar = () => {
                     className="flex flex-col gap-2 pt-4 border-t border-border/50"
                     variants={mobileItemVariants}
                   >
-                    <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                      Comenzar Gratis
-                    </Button>
+                    <a href="#contacto" onClick={() => setIsMenuOpen(false)}>
+                      <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                        Cotizar
+                      </Button>
+                    </a>
                   </motion.div>
                 </div>
               </div>

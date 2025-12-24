@@ -238,7 +238,7 @@ const Footer = () => {
           transition={{ delay: 0.4, duration: 0.5 }}
         >
           <p className="text-background/50 text-sm">
-            © 2024 Vivaintec.
+            © 2025 Vivaintec.
           </p>
           <div className="flex items-center gap-6 text-sm text-background/50">
             {[
