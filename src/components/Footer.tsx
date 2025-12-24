@@ -46,7 +46,7 @@ const Footer = () => {
   // Email protection with Google reCAPTCHA
   const [showCaptcha, setShowCaptcha] = useState(false);
   const [emailRevealed, setEmailRevealed] = useState(false);
-  const RECAPTCHA_SITE_KEY = "6LcONDUsAAAABcF4H9WG7nA4TCltFehvgvNyv8W";
+  const RECAPTCHA_SITE_KEY = "6LdCODUsAAAAAKv1MJXwykoCbtrTI16-1q5V2yrl";
 
   const handleCaptchaSuccess = () => {
     setEmailRevealed(true);
