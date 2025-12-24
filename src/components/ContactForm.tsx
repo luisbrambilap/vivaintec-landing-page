@@ -44,7 +44,7 @@ const ContactForm = () => {
     const [captchaToken, setCaptchaToken] = useState<string | null>(null);
     const recaptchaRef = useRef<HTMLDivElement>(null);
     const widgetIdRef = useRef<number | null>(null);
-    const RECAPTCHA_SITE_KEY = "6LdCODUsAAAAAKv1MJXwykoCbtrTI16-1q5V2yrl";
+    const RECAPTCHA_SITE_KEY = "6LdCODUsAAAAAKv1MJXwykoCbtrTi16-1q5V2yrl";
 
     // Render reCAPTCHA on mount
     useEffect(() => {
